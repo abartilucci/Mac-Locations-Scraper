@@ -185,21 +185,21 @@ if __name__ == "__main__":
 	if args.output == 'c' or args.output == 'e':
 		output_type = 'c'
 
-		with open('mac_locations_scraped.csv', 'wb') as csvfile:
+		with open('mac_locations_scraped.csv', 'w') as csvfile:
 			loccsv = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
 			loccsv.writerow(['Database','Table','Timestamp (GMT)', 'Latitude', 'Longitude', 'Original Database Tuple Data'])
 
 			for root, dirs, filenames in os.walk(locdir):
 				for f in filenames: 
 					if f.endswith(".db") or f.endswith(".sqlite"):
-						print "Scraping locations for CSV from: " + f  
+						print("Scraping locations for CSV from: " + f)  
 						db = os.path.join(root,f)
 						conn = sqlite3.connect(db)
 						with conn:
 							conn.row_factory = sqlite3.Row
 							cur = conn.cursor()
 							getTablesNColumns()
-			print "...Locations are being saved in the CSV file mac_locations_scraped.csv"
+			print("...Locations are being saved in the CSV file mac_locations_scraped.csv")
 
 	if args.output == 'k' or args.output =='e':
 		output_type = 'k'
@@ -208,7 +208,7 @@ if __name__ == "__main__":
 		for root, dirs, filenames in os.walk(locdir):
 			for f in filenames:
 				if f.endswith(".db") or f.endswith(".sqlite"):
-					print "Scraping locations for KML from: " + f
+					print("Scraping locations for KML from: " + f)
 					db = os.path.join(root,f)
 					conn = sqlite3.connect(db)
 					with conn:
@@ -217,4 +217,4 @@ if __name__ == "__main__":
 						getTablesNColumns()
 
 			kml.save("mac_locations_scraped.kml")
-		print "...Locations are being saved in the KML file mac_locations_scraped.kml"
+		print("...Locations are being saved in the KML file mac_locations_scraped.kml")
